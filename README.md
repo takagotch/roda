@@ -58,5 +58,38 @@ end
 
 ```
 
-```
+```rb
+class Roda
+  module RodaPlugins
+    module Markdown
+      module InstanceMethods
+        def markdown(str)
+          BlueCloth.new(str).to_html
+        end
+      end
+    end
+    
+    register_plugin :markdown, Markdown
+  end
+end
+
+
+module MarkdownHelper
+  module InstanceMethods
+    def markdown(str)
+      BlueCloth.new(str).to_html
+    end
+  end
+end
+
+Roda.plugin MarkdownHelper
+
+class App < Roda
+  plugin :default_headers,
+    'Content-Type'=>'text/html',
+    'Strict-Transport-Security'=>'max-age=16070400',
+    'X-Content-Type-Options'=>'nosniff',
+    'X-Frame-Options'=>'deny',
+    'X-XSS-Protection'=>'1; mode=block'
+end
 ```
