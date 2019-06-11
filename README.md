@@ -2,7 +2,7 @@
 ---
 https://github.com/jeremyevans/roda
 
-```
+```sh
 gem install roda
 ```
 
